@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 
-import { Briefcase, FileText, Users, ArrowRight, Play, Calculator, AlertTriangle, ClipboardCheck, Scale, MessageSquare, Award, Shield, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react"
+import { Briefcase, FileText, Users, ArrowRight, Play, Calculator, AlertTriangle, ClipboardCheck, Scale, MessageSquare, Award, Shield, TrendingUp, ChevronLeft, ChevronRight, Building2, HeadphonesIcon, BookOpen, FlaskConical, Globe } from "lucide-react"
 import KakaoMap from "@/components/kakao-map"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect } from "react"
@@ -22,7 +22,7 @@ function HeroSection() {
       src: "/videos/hero-bg.mp4",
       topLeft: {
         title: "노무 문제, 명쾌한 해결",
-        subtitle: "FAIR인사노무컨설팅"
+        subtitle: "선함노동사무소"
       },
       bottomRight: {
         text: "전문적인 상담으로 최적의 솔루션을",
@@ -86,8 +86,8 @@ function HeroSection() {
     setCurrentSlide(index)
   }
 
-  return (
-    <section className="relative h-[calc(100vh-4rem)] w-full overflow-hidden">
+      return (
+      <section className="relative h-[calc(100vh-4.5rem)] w-full overflow-hidden mt-[4.5rem]">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -158,7 +158,7 @@ function HeroSection() {
             transition={{ duration: 1.0, delay: 0.2, ease: "easeOut" }}
             className="text-2xl font-bold tracking-tighter text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 md:mb-6 leading-tight"
           >
-            당신의 든든한 파트너
+            근로자의 권익을 지키는 든든한 파트너
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -166,7 +166,7 @@ function HeroSection() {
             transition={{ duration: 1.0, delay: 0.4, ease: "easeOut" }}
             className="max-w-[90%] sm:max-w-[600px] mx-auto text-slate-200 text-sm sm:text-base md:text-lg mb-6 md:mb-8 leading-relaxed"
           >
-            FAIR인사노무컨설팅이 전문적인 상담으로 최적의 솔루션을 제공합니다.
+            선함노동사무소가 근로자의 권익 보호와 노동 문제 해결을 위해 24시간 함께합니다.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -176,12 +176,12 @@ function HeroSection() {
           >
             <Link href="/contact">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto">
-                빠른 상담 신청 <ArrowRight className="ml-2 h-4 w-4" />
+                비대면 상담 신청 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
             <Link href="/services">
               <Button variant="outline" size="lg" className="text-white border-white/80 hover:bg-white hover:text-black backdrop-blur-sm bg-black/20 w-full sm:w-auto">
-                서비스 둘러보기
+                근로자 서비스 보기
               </Button>
             </Link>
           </motion.div>
@@ -213,6 +213,92 @@ function HeroSection() {
             }`}
           />
         ))}
+      </div>
+    </section>
+  )
+}
+
+// 서비스 카테고리 섹션 추가
+function ServiceCategoriesSection() {
+  const categories = [
+    {
+      icon: Building2,
+      title: "선함 노동상담실",
+      subtitle: "LABOR OFFICE",
+      description: "개인 근로자를 위한 전문 상담",
+      href: "https://blog.naver.com/PostList.naver?blogId=fairhr&from=postList&categoryNo=144&parentCategoryNo=144",
+      bgColor: "bg-blue-500",
+      textColor: "text-white"
+    },
+    {
+      icon: HeadphonesIcon,
+      title: "선함 상담실",
+      subtitle: "COUNSELING OFFICE",
+      description: "24시간 온라인 상담 서비스",
+      href: "https://blog.naver.com/PostList.naver?blogId=fairhr&from=postList&categoryNo=148&parentCategoryNo=148",
+      bgColor: "bg-gray-400",
+      textColor: "text-white"
+    },
+    {
+      icon: BookOpen,
+      title: "선함 자료실",
+      subtitle: "REFERENCE LIBRARY",
+      description: "노동법 관련 자료 모음",
+      href: "https://blog.naver.com/PostList.naver?blogId=fairhr&from=postList&categoryNo=192&parentCategoryNo=192",
+      bgColor: "bg-blue-500",
+      textColor: "text-white"
+    },
+    {
+      icon: FlaskConical,
+      title: "선함 연구실",
+      subtitle: "LABORATORY",
+      description: "노동 문제 분석 및 연구",
+      href: "https://blog.naver.com/PostList.naver?blogId=fairhr&from=postList&categoryNo=184&parentCategoryNo=184",
+      bgColor: "bg-gray-400",
+      textColor: "text-white"
+    },
+    {
+      icon: Globe,
+      title: "선함 미국법상식",
+      subtitle: "UNITED STATES LAW",
+      description: "미국 노동법 정보 제공",
+      href: "https://blog.naver.com/PostList.naver?blogId=fairhr&from=postList&categoryNo=174&parentCategoryNo=174",
+      bgColor: "bg-blue-500",
+      textColor: "text-white"
+    }
+  ]
+
+  return (
+    <section className="w-full py-10 md:py-16 bg-white">
+      <div className="container-fluid max-w-7xl px-4">
+        <div className="flex justify-center items-center gap-8 md:gap-12 lg:gap-16 overflow-x-auto scrollbar-hide">
+          {categories.map((category, index) => (
+            <motion.div
+              key={category.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className="flex-shrink-0"
+            >
+              <Link href={category.href}>
+                <div className="flex flex-col items-center text-center cursor-pointer group">
+                  <div className={`w-20 h-20 md:w-24 md:h-24 rounded-full ${category.bgColor} ${category.textColor} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                    <category.icon className="w-8 h-8 md:w-10 md:h-10" />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">
+                      {category.subtitle}
+                    </p>
+                    <h3 className="text-sm font-bold text-gray-900 group-hover:text-primary transition-colors">
+                      {category.title}
+                    </h3>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -254,13 +340,13 @@ function CompanyIntroSection() {
         >
           <div className="inline-flex items-center gap-2 bg-primary/10 px-3 py-1.5 rounded-full text-sm text-primary font-medium mb-3">
             <span>🏆</span>
-            신뢰받는 이유
+            신뢰받는 이유  
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-            <span className="text-primary">FAIR인사노무컨설팅</span>을 선택하는 이유
+            <span className="text-primary">선함노동사무소</span>를 선택하는 이유
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            치밀한 논리와 철저한 준비로 고객의 성공을 이끌어온 19년의 경험
+            치밀한 논리와 철저한 준비로 근로자의 권익을 보호해온 19년의 경험
           </p>
         </motion.div>
 
@@ -298,10 +384,10 @@ function CompanyIntroSection() {
           className="text-center mb-4"
         >
           <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
-            영상으로 만나는 FAIR인사노무컨설팅
+            영상으로 만나는 선함노동사무소
           </h3>
           <p className="text-muted-foreground">
-            2005년 설립 이후 기업자문에 컨설팅 개념을 도입하여 새로운 지평을 열었습니다.
+            2005년 설립 이후 근로자의 권익 보호에 새로운 지평을 열어가고 있습니다.
           </p>
         </motion.div>
         
@@ -316,7 +402,7 @@ function CompanyIntroSection() {
             <iframe
               className="w-full h-full"
               src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=example"
-              title="FAIR인사노무컨설팅 회사 소개"
+              title="선함노동사무소 회사 소개"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
@@ -354,36 +440,36 @@ function CompanyIntroSection() {
 function ToolsSection() {
   const laborTools = [
     {
-      icon: ClipboardCheck,
-      title: "근로계약서 작성",
-      description: "법적 요건을 만족하는 계약서 간편 작성",
-      href: "/tools/contract-generator/create",
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-      badge: "인기"
-    },
-    {
       icon: AlertTriangle,
-      title: "해고 가능성 진단",
-      description: "해고 타당성과 절차 적법성 사전 진단",
+      title: "부당해고 진단",
+      description: "내가 받은 해고가 정당한지 무료로 진단",
       href: "/tools/dismissal-checker",
       color: "text-red-600",
       bgColor: "bg-red-50",
-      badge: "정확"
+      badge: "핫이슈"
     },
     {
       icon: Calculator,
       title: "퇴직금 계산기",
-      description: "정확한 퇴직금 및 각종 수당 계산",
+      description: "정확한 퇴직금과 각종 수당 계산",
       href: "/tools/severance-calculator",
       color: "text-green-600",
       bgColor: "bg-green-50",
       badge: "즉시"
     },
     {
+      icon: ClipboardCheck,
+      title: "근로계약서 검토",
+      description: "내 계약서가 불리하지 않은지 체크",
+      href: "/tools/contract-generator/create",
+      color: "text-blue-600",
+      bgColor: "bg-blue-50",
+      badge: "무료"
+    },
+    {
       icon: Scale,
-      title: "근로시간 진단",
-      description: "근로기준법 준수 여부 점검",
+      title: "근로시간 체크",
+      description: "초과근무와 휴게시간 법적 검토",
       href: "/tools/working-time-checker",
       color: "text-purple-600",
       bgColor: "bg-purple-50",
@@ -392,11 +478,11 @@ function ToolsSection() {
     {
       icon: MessageSquare,
       title: "AI 노무 상담",
-      description: "24시간 AI 챗봇 즉시 상담",
+      description: "24시간 언제든지 궁금한 것을 물어보세요",
       href: "/tools/ai-consultation",
       color: "text-orange-600",
       bgColor: "bg-orange-50",
-      badge: "24H"
+      badge: "24시간"
     }
   ]
 
@@ -415,10 +501,10 @@ function ToolsSection() {
             스마트 노무 도구
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-            복잡한 노무업무를 <span className="text-primary">간단하게</span>
+            근로자를 위한 <span className="text-primary">스마트 도구</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            전문가가 개발한 도구로 클릭 몇 번으로 전문가 수준의 결과물을 만들어보세요.
+            복잡한 노동 문제를 간단하게 해결하세요. 24시간 언제든지 무료로 이용 가능합니다.
           </p>
         </motion.div>
 
@@ -469,11 +555,11 @@ function ToolsSection() {
         >
           <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
             <span>💡</span>
-            복잡한 사안은 
+            더 복잡한 문제라면 
             <Link href="/contact" className="text-primary hover:underline font-medium ml-1">
-              전문가 상담
+              전문가 비대면 상담
             </Link>
-            을 이용해보세요
+            을 받아보세요
           </div>
         </motion.div>
       </div>
@@ -560,7 +646,23 @@ export default function HomePage() {
 
   return (
     <>
+      {/* 상단 리다이렉트 바 - 메인페이지에만 표시 */}
+      <div className="fixed top-16 left-0 right-0 z-40 bg-slate-100 border-b border-slate-200 py-1">
+        <div className="container-fluid max-w-7xl px-4 md:px-6">
+          <div className="flex justify-center items-center gap-4 text-xs">
+            <Link href="https://blog.naver.com/PostList.naver?blogId=fairhr" className="text-slate-600 hover:text-primary transition-colors">
+              선함노동사무소 블로그
+            </Link>
+            <span className="text-slate-400">|</span>
+            <Link href="https://h-rsystem.vercel.app/" className="text-slate-600 hover:text-primary transition-colors">
+              FAIR인사노무컨설팅회
+            </Link>
+          </div>
+        </div>
+      </div>
+      
       <HeroSection />
+      <ServiceCategoriesSection />
       <CompanyIntroSection />
       <ToolsSection />
 
@@ -577,11 +679,11 @@ export default function HomePage() {
               핵심 서비스
             </div>
             <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl px-4">
-              전문 노무 솔루션으로 함께합니다
+              근로자를 위한 전문 서비스
             </h2>
             <p className="max-w-[90%] sm:max-w-[900px] text-muted-foreground text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed px-4">
-              FAIR인사노무컨설팅은 기업과 개인 모두를 위한 다양한 전문 서비스를 제공하여, 복잡한 노무 문제를 명쾌하게
-              해결해 드립니다.
+              선함노동사무소는 개인 근로자를 위한 전문적인 상담과 법률 서비스를 제공하여, 
+              노동 문제를 쉽고 정확하게 해결해 드립니다.
             </p>
           </motion.div>
           <div className="grid gap-4 md:gap-6 lg:gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 max-w-6xl mx-auto">
@@ -603,7 +705,7 @@ export default function HomePage() {
           >
             <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl px-4">최신 소식 및 공지사항</h2>
             <p className="max-w-[90%] sm:max-w-[900px] text-muted-foreground text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed px-4">
-              노동 시장의 최신 동향과 FAIR인사노무컨설팅의 주요 소식을 가장 먼저 확인하세요.
+              노동 시장의 최신 동향과 선함노동사무소의 주요 소식을 가장 먼저 확인하세요.
             </p>
           </motion.div>
           
@@ -698,11 +800,11 @@ export default function HomePage() {
             transition={{ duration: 0.5 }}
             className="space-y-3 px-4"
           >
-            <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl leading-tight">전문가의 도움이 필요하신가요?</h2>
+            <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl leading-tight">혼자 고민하지 마세요</h2>
             <p className="mx-auto max-w-[90%] sm:max-w-[600px] text-muted-foreground text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed">
-              망설이지 말고 지금 바로 FAIR인사노무컨설팅에 문의하세요.
+              선함노동사무소가 근로자의 권익을 위해 24시간 함께합니다.
               <br className="hidden sm:block" />
-              전화 상담:{" "}
+              비대면 상담 문의:{" "}
               <a href="tel:02-1234-5678" className="text-primary hover:underline font-medium">
                 02-1234-5678
               </a>
@@ -746,7 +848,7 @@ export default function HomePage() {
               latitude={37.5012743}
               longitude={127.039585}
               level={4}
-              markerText="FAIR인사노무컨설팅 (역삼역 5번 출구 인근)"
+              markerText="선함노동사무소 (역삼역 5번 출구 인근)"
               className="w-full h-full rounded-lg"
             />
           </motion.div>

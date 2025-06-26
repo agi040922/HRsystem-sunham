@@ -38,7 +38,7 @@ const navItems: NavItem[] = [
       {
         href: "/about/greeting",
         title: "인사말",
-        description: "FAIR인사노무컨설팅의 철학과 비전을 소개합니다",
+        description: "선함노동사무소의 철학과 비전을 소개합니다",
       },
       {
         href: "/about/profile",
@@ -48,12 +48,12 @@ const navItems: NavItem[] = [
       {
         href: "/about/ethics",
         title: "윤리강령",
-        description: "FAIR인사노무컨설팅이 추구하는 8가지 윤리강령",
+        description: "선함노동사무소가 추구하는 8가지 윤리강령",
       },
       {
         href: "/about/location",
         title: "오시는 길",
-        description: "FAIR인사노무컨설팅 위치 안내 및 교통편",
+        description: "선함노동사무소 위치 안내 및 교통편",
       },
     ],
   },
@@ -126,103 +126,103 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/95 shadow-sm">
-      <div className="container-fluid max-w-7xl flex h-16 items-center justify-between px-4 md:px-6">
-        <Link href="/" className="flex items-center gap-2 flex-shrink-0 transition-opacity hover:opacity-80">
-          <Image 
-            src="/logo.png" 
-            alt="FAIR인사노무컨설팅 로고" 
-            width={180} 
-            height={40} 
-            className="h-8 w-auto max-w-[120px] sm:max-w-[180px]"
-            priority
-          />
-        </Link>
-        
-        <NavigationMenu className="hidden lg:flex">
-          <NavigationMenuList className="gap-1">
-            {navItems.map((item) =>
-              item.children ? (
-                <NavigationMenuItem key={item.label}>
-                  <NavigationMenuTrigger className="text-sm font-medium text-gray-700 hover:text-primary transition-colors bg-transparent hover:bg-gray-50 data-[state=open]:bg-gray-50 data-[state=open]:text-primary h-10 px-4 py-2">
-                    {item.label}
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="min-w-[400px] p-4">
-                    <ul className="grid w-full gap-2 grid-cols-1">
-                      {item.children.map((child) => (
-                        <ListItem key={child.title} href={child.href} title={child.title}>
-                          {child.description}
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              ) : (
-                <NavigationMenuItem key={item.label}>
-                  <Link href={item.href} legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(
-                      navigationMenuTriggerStyle(),
-                      "text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors h-10 px-4 py-2"
-                    )}>
+        <div className="container-fluid max-w-7xl flex h-16 items-center justify-between px-4 md:px-6">
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0 transition-opacity hover:opacity-80">
+            <Image 
+              src="/logo.png" 
+              alt="선함노동사무소 로고" 
+              width={180} 
+              height={40} 
+              className="h-8 w-auto max-w-[120px] sm:max-w-[180px]"
+              priority
+            />
+          </Link>
+          
+          <NavigationMenu className="hidden lg:flex">
+            <NavigationMenuList className="gap-1">
+              {navItems.map((item) =>
+                item.children ? (
+                  <NavigationMenuItem key={item.label}>
+                    <NavigationMenuTrigger className="text-sm font-medium text-gray-700 hover:text-primary transition-colors bg-transparent hover:bg-gray-50 data-[state=open]:bg-gray-50 data-[state=open]:text-primary h-10 px-4 py-2">
                       {item.label}
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-              ),
-            )}
-          </NavigationMenuList>
-        </NavigationMenu>
-        
-        <div className="lg:hidden">
-          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="h-10 w-10 text-gray-700 hover:text-primary hover:bg-gray-50"
-              >
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">메뉴 열기</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[280px] sm:w-[350px] bg-white">
-              <nav className="grid gap-2 text-base font-medium mt-8">
-                {navItems.map((item) => (
-                  <React.Fragment key={item.label}>
-                    {item.children ? (
-                      <div className="grid gap-1">
-                        <div className="flex items-center justify-between text-gray-900 px-3 py-3 border-b border-gray-200">
-                          <span className="font-semibold">{item.label}</span>
-                          <ChevronDown className="h-4 w-4 text-gray-500" />
-                        </div>
-                        <div className="grid gap-1 pl-4 py-2 bg-gray-50 rounded-lg ml-2 mr-2">
-                          {item.children.map((child) => (
-                            <Link
-                              key={child.title}
-                              href={child.href}
-                              className="text-sm text-gray-600 hover:text-primary px-3 py-2 rounded-md hover:bg-white transition-colors"
-                              onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                              {child.title}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <Link
-                        href={item.href}
-                        className="text-gray-900 hover:text-primary px-3 py-3 rounded-md hover:bg-gray-50 transition-colors border-b border-gray-200 font-medium"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className="min-w-[400px] p-4">
+                      <ul className="grid w-full gap-2 grid-cols-1">
+                        {item.children.map((child) => (
+                          <ListItem key={child.title} href={child.href} title={child.title}>
+                            {child.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                ) : (
+                  <NavigationMenuItem key={item.label}>
+                    <Link href={item.href} legacyBehavior passHref>
+                      <NavigationMenuLink className={cn(
+                        navigationMenuTriggerStyle(),
+                        "text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors h-10 px-4 py-2"
+                      )}>
                         {item.label}
-                      </Link>
-                    )}
-                  </React.Fragment>
-                ))}
-              </nav>
-            </SheetContent>
-          </Sheet>
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+                ),
+              )}
+            </NavigationMenuList>
+          </NavigationMenu>
+          
+          <div className="lg:hidden">
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-10 w-10 text-gray-700 hover:text-primary hover:bg-gray-50"
+                >
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">메뉴 열기</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[280px] sm:w-[350px] bg-white">
+                <nav className="grid gap-2 text-base font-medium mt-8">
+                  {navItems.map((item) => (
+                    <React.Fragment key={item.label}>
+                      {item.children ? (
+                        <div className="grid gap-1">
+                          <div className="flex items-center justify-between text-gray-900 px-3 py-3 border-b border-gray-200">
+                            <span className="font-semibold">{item.label}</span>
+                            <ChevronDown className="h-4 w-4 text-gray-500" />
+                          </div>
+                          <div className="grid gap-1 pl-4 py-2 bg-gray-50 rounded-lg ml-2 mr-2">
+                            {item.children.map((child) => (
+                              <Link
+                                key={child.title}
+                                href={child.href}
+                                className="text-sm text-gray-600 hover:text-primary px-3 py-2 rounded-md hover:bg-white transition-colors"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                {child.title}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className="text-gray-900 hover:text-primary px-3 py-3 rounded-md hover:bg-gray-50 transition-colors border-b border-gray-200 font-medium"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
   )
 }
