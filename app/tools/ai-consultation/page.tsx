@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -79,7 +79,48 @@ interface AIAnalysis {
   riskFactors: string[]
 }
 
-export default function AIConsultationPage() {
+// 로딩 컴포넌트
+function LoadingConsultation() {
+  return (
+    <div className="min-h-screen bg-white">
+      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Link href="/" className="inline-flex items-center text-sm text-gray-600 hover:text-primary transition-colors">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                홈으로
+              </Link>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Bot className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-lg font-semibold text-gray-900">
+                    AI 상담 시스템
+                  </h1>
+                  <Badge variant="secondary">
+                    AI 법률 분석 시스템
+                  </Badge>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="flex-1 flex items-center justify-center py-20">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-primary" />
+          <p className="text-gray-600">상담 시스템을 준비하고 있습니다...</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// 메인 상담 컴포넌트 (useSearchParams 사용)
+function ConsultationComponent() {
   const searchParams = useSearchParams()
   const [currentCategory, setCurrentCategory] = useState<string | null>(null)
   const [currentStep, setCurrentStep] = useState<'form' | 'analysis'>('form')
@@ -987,6 +1028,13 @@ export default function AIConsultationPage() {
       </div>
     </div>
   )
+}
 
-
+// 메인 페이지 컴포넌트 - Suspense로 감싸기
+export default function AIConsultationPage() {
+  return (
+    <Suspense fallback={<LoadingConsultation />}>
+      <ConsultationComponent />
+    </Suspense>
+  )
 }
