@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -23,7 +23,48 @@ interface Message {
   timestamp: Date
 }
 
-export default function ChatPage() {
+// 로딩 컴포넌트
+function LoadingChat() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Link href="/" className="inline-flex items-center text-sm text-gray-600 hover:text-primary transition-colors">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                홈으로
+              </Link>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-lg font-semibold text-gray-900">
+                    AI 노동 상담
+                  </h1>
+                  <p className="text-sm text-gray-600">
+                    정광일 노무사와 함께하는 24시간 상담
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="flex-1 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-primary" />
+          <p className="text-gray-600">채팅을 준비하고 있습니다...</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// 메인 채팅 컴포넌트 (useSearchParams 사용)
+function ChatComponent() {
   const searchParams = useSearchParams()
   const [messages, setMessages] = useState<Message[]>([])
   const [inputMessage, setInputMessage] = useState("")
@@ -310,5 +351,14 @@ export default function ChatPage() {
         </Card>
       </div>
     </div>
+  )
+}
+
+// 메인 페이지 컴포넌트 - Suspense로 감싸기
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<LoadingChat />}>
+      <ChatComponent />
+    </Suspense>
   )
 }
