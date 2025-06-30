@@ -31,4 +31,56 @@ export interface BoardImage {
   alt_text: string | null
   display_order: number
   created_at: string
+}
+
+// AI 상담 관련 타입 정의
+export interface AIConsultation {
+  id: number
+  session_id: string
+  user_name?: string
+  user_email?: string
+  user_phone?: string
+  category?: string
+  initial_query: string
+  consultation_type: 'search' | 'keyword' | 'form'
+  status: 'active' | 'completed' | 'abandoned'
+  satisfaction_score?: number
+  admin_notes?: string
+  follow_up_required: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface AIMessage {
+  id: number
+  consultation_id: number
+  sender_type: 'user' | 'ai' | 'system'
+  content: string
+  metadata?: any
+  timestamp: string
+}
+
+export interface ConsultationCategory {
+  id: number
+  name: string
+  display_name: string
+  description?: string
+  keywords?: string[]
+  form_template?: any
+  color: string
+  icon?: string
+  sort_order: number
+  is_active: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface ConsultationFeedback {
+  id: number
+  consultation_id: number
+  rating: number
+  feedback_text?: string
+  improvement_suggestions?: string
+  would_recommend?: boolean
+  created_at: string
 } 

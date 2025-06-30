@@ -12,207 +12,138 @@ import { useState, useEffect } from "react"
 import { getFeaturedPosts } from "@/lib/board"
 import type { BoardPost } from "@/lib/supabase"
 
-// HeroSection 컴포넌트 - 캐러셀 버전
+// HeroSection 컴포넌트 - 검색창 중심 디자인
 function HeroSection() {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
-  const slides = [
-    {
-      type: "video",
-      src: "/videos/hero-bg.mp4",
-      topLeft: {
-        title: "노무 문제, 명쾌한 해결",
-        subtitle: "선함노동사무소"
-      },
-      bottomRight: {
-        text: "전문적인 상담으로 최적의 솔루션을",
-        highlight: "19년 경험의 전문성"
-      }
-    },
-    {
-      type: "image",
-      src: "https://image.lawtimes.co.kr/images/148040.jpg",
-      topLeft: {
-        title: "200건+ 압도적 승소율",
-        subtitle: "검증된 실력"
-      },
-      bottomRight: {
-        text: "노동위원회, 행정심판에서",
-        highlight: "뛰어난 성과 달성"
-      }
-    },
-    {
-      type: "image", 
-      src: "https://img.investchosun.com/site/data/img_dir/2019/07/09/2019070986003_0.jpg",
-      topLeft: {
-        title: "김&장 출신 전문성",
-        subtitle: "대표 정광일"
-      },
-      bottomRight: {
-        text: "연세대 MBA, 제8회 공인노무사",
-        highlight: "최고 수준의 전문성"
-      }
-    },
-    {
-      type: "image",
-      src: "https://www.blockmedia.co.kr/wp-content/uploads/2023/02/AI-%EC%97%90%EC%84%B8%EC%9D%B4-%EC%82%AC%EB%A1%80.jpg",
-      topLeft: {
-        title: "스마트 노무 도구",
-        subtitle: "AI 기반 솔루션"
-      },
-      bottomRight: {
-        text: "복잡한 노무업무를 간단하게",
-        highlight: "24시간 즉시 해결"
-      }
-    }
+  // 상담 카테고리 키워드 태그들
+  const consultationTags = [
+    { id: 'wrongful_dismissal', name: '부당인사조치', color: '#EF4444', icon: '⚠️' },
+    { id: 'unpaid_wages', name: '퇴직금체불', color: '#F59E0B', icon: '💰' },
+    { id: 'workplace_harassment', name: '직장내괴롭힘', color: '#8B5CF6', icon: '🛡️' },
+    { id: 'industrial_accident', name: '산재상담', color: '#10B981', icon: '❤️' },
+    { id: 'labor_contract', name: '근로계약서', color: '#3B82F6', icon: '📄' }
   ]
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length)
-    }, 7000)
-    return () => clearInterval(timer)
-  }, [slides.length, currentSlide])
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length)
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      // AI 채팅 페이지로 이동
+      window.location.href = `/tools/ai-consultation/chat?query=${encodeURIComponent(searchQuery)}`
+    }
   }
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
-  }
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index)
+  const handleTagClick = (tagId: string, tagName: string) => {
+    setSelectedCategory(tagId)
+    // 카테고리별 상담 폼으로 이동
+    window.location.href = `/tools/ai-consultation?category=${tagId}&name=${encodeURIComponent(tagName)}`
   }
 
       return (
-      <section className="relative h-[calc(100vh-4.5rem)] w-full overflow-hidden mt-[4.5rem]">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentSlide}
-          initial={{ opacity: 0.3 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0.3 }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
-          className="absolute inset-0"
-        >
-          {slides[currentSlide].type === "video" ? (
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 z-0 w-full h-full object-cover"
-            >
-              <source src={slides[currentSlide].src} type="video/mp4" />
-              영상을 지원하지 않는 브라우저입니다.
-            </video>
-          ) : (
-            <img
-              src={slides[currentSlide].src}
-              alt="Hero background"
-              className="absolute inset-0 z-0 w-full h-full object-cover"
-            />
-          )}
-          <div className="absolute inset-0 bg-black/50 z-10" />
-          
-          {/* 왼쪽 상단 텍스트 */}
+    <section className="relative min-h-[calc(100vh-4.5rem)] w-full bg-white mt-[4.5rem]">
+      <div className="container-fluid max-w-6xl mx-auto px-4 py-12 md:py-20">
+        <div className="text-center">
+          {/* 메인 헤딩 */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.0, delay: 0.4, ease: "easeOut" }}
-            className="absolute top-8 left-8 z-20 max-w-md"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-6 md:mb-8"
           >
-            <h3 className="text-sm md:text-base text-slate-300 mb-2">
-              {slides[currentSlide].topLeft.subtitle}
-            </h3>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">
-              {slides[currentSlide].topLeft.title}
-            </h2>
-          </motion.div>
-
-          {/* 오른쪽 하단 텍스트 */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.0, delay: 0.6, ease: "easeOut" }}
-            className="absolute bottom-8 right-8 z-20 max-w-md text-right"
-          >
-            <p className="text-sm md:text-base text-slate-300 mb-1">
-              {slides[currentSlide].bottomRight.text}
-            </p>
-            <p className="text-lg md:text-xl font-semibold text-primary">
-              {slides[currentSlide].bottomRight.highlight}
+            <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full text-sm text-primary font-medium mb-4">
+              <span>⚖️</span>
+              선함노동사무소와 함께하는 스마트 노동 상담
+            </div>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 leading-tight">
+              노동 문제,<br className="sm:hidden" /> 
+              <span className="text-primary">궁금한 것을 물어보세요</span>
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              19년 경험의 전문 노무사와 AI가 함께 24시간 도와드립니다
             </p>
           </motion.div>
-        </motion.div>
-      </AnimatePresence>
 
-      {/* 중앙 메인 콘텐츠 */}
-      <div className="relative z-20 h-full flex items-center justify-center">
-        <div className="container-fluid text-center max-w-4xl px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+          {/* 검색창 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.0, delay: 0.2, ease: "easeOut" }}
-            className="text-2xl font-bold tracking-tighter text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 md:mb-6 leading-tight"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-8 md:mb-12"
           >
-            근로자의 권익을 지키는 든든한 파트너
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.0, delay: 0.4, ease: "easeOut" }}
-            className="max-w-[90%] sm:max-w-[600px] mx-auto text-slate-200 text-sm sm:text-base md:text-lg mb-6 md:mb-8 leading-relaxed"
-          >
-            선함노동사무소가 근로자의 권익 보호와 노동 문제 해결을 위해 24시간 함께합니다.
-          </motion.p>
+            <form onSubmit={handleSearchSubmit} className="max-w-4xl mx-auto">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative flex items-center bg-white rounded-2xl shadow-xl border-2 border-gray-100 hover:border-primary/30 transition-all duration-300 overflow-hidden">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="해고당했는데 정당한가요? 퇴직금이 얼마인가요? 무엇이든 물어보세요..."
+                    className="flex-1 px-6 md:px-8 py-4 md:py-6 text-base md:text-lg text-gray-900 placeholder-gray-500 bg-transparent border-none outline-none"
+                  />
+                  <button
+                    type="submit"
+                    disabled={!searchQuery.trim()}
+                    className="mx-2 px-6 md:px-8 py-3 md:py-4 bg-primary hover:bg-primary/90 disabled:bg-gray-300 text-white font-semibold rounded-xl transition-all duration-300 disabled:cursor-not-allowed"
+                  >
+                    <span className="hidden sm:inline">AI 상담 시작</span>
+                    <span className="sm:hidden">시작</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </motion.div>
+
+          {/* 키워드 태그들 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.0, delay: 0.6, ease: "easeOut" }}
-            className="flex flex-col gap-3 sm:flex-row justify-center items-center"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mb-8 md:mb-12"
           >
-            <Link href="/contact">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto">
-                비대면 상담 신청 <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/services">
-              <Button variant="outline" size="lg" className="text-white border-white/80 hover:bg-white hover:text-black backdrop-blur-sm bg-black/20 w-full sm:w-auto">
-                근로자 서비스 보기
-              </Button>
-            </Link>
+            <p className="text-sm text-gray-600 mb-4">또는 자주 묻는 주제를 선택하세요</p>
+            <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-4xl mx-auto">
+              {consultationTags.map((tag) => (
+                <motion.button
+                  key={tag.id}
+                  onClick={() => handleTagClick(tag.id, tag.name)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 rounded-full bg-white border-2 border-gray-200 hover:border-primary text-gray-700 hover:text-primary font-medium transition-all duration-300 shadow-sm hover:shadow-md"
+                  style={{
+                    borderColor: selectedCategory === tag.id ? tag.color : undefined,
+                    backgroundColor: selectedCategory === tag.id ? `${tag.color}10` : undefined
+                  }}
+                >
+                  <span className="text-base">{tag.icon}</span>
+                  <span className="text-sm md:text-base">#{tag.name}</span>
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* 신뢰도 지표 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto"
+          >
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">200+</div>
+              <div className="text-sm text-gray-600">승소 사건</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">19년</div>
+              <div className="text-sm text-gray-600">전문 경력</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">24시간</div>
+              <div className="text-sm text-gray-600">AI 상담</div>
+            </div>
           </motion.div>
         </div>
-      </div>
-
-      {/* 네비게이션 버튼 */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-all duration-300"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-all duration-300"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
-
-      {/* 인디케이터 */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex space-x-2">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-500 ${
-              index === currentSlide ? 'bg-primary' : 'bg-white/30 hover:bg-white/50'
-            }`}
-          />
-        ))}
       </div>
     </section>
   )
