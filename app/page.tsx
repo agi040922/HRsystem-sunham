@@ -19,11 +19,11 @@ function HeroSection() {
 
   // 상담 카테고리 키워드 태그들
   const consultationTags = [
-    { id: 'wrongful_dismissal', name: '부당인사조치', color: '#EF4444', icon: '⚠️' },
-    { id: 'unpaid_wages', name: '퇴직금체불', color: '#F59E0B', icon: '💰' },
-    { id: 'workplace_harassment', name: '직장내괴롭힘', color: '#8B5CF6', icon: '🛡️' },
-    { id: 'industrial_accident', name: '산재상담', color: '#10B981', icon: '❤️' },
-    { id: 'labor_contract', name: '근로계약서', color: '#3B82F6', icon: '📄' }
+    { id: 'wrongful_dismissal', name: '부당인사조치', color: '#EF4444'},
+    { id: 'unpaid_wages', name: '퇴직금체불', color: '#F59E0B'},
+    { id: 'workplace_harassment', name: '직장내괴롭힘', color: '#8B5CF6'},
+    { id: 'industrial_accident', name: '산재상담', color: '#10B981'},
+    { id: 'labor_contract', name: '근로계약서', color: '#3B82F6'}
   ]
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -41,7 +41,7 @@ function HeroSection() {
   }
 
       return (
-    <section className="relative min-h-[calc(100vh-4.5rem)] w-full bg-white mt-[4.5rem]">
+    <section className="relative min-h-[calc(100vh-4.5rem)] w-full bg-white pt-[6rem]">
       <div className="container-fluid max-w-6xl mx-auto px-4 py-12 md:py-20">
         <div className="text-center">
           {/* 메인 헤딩 */}
@@ -52,7 +52,6 @@ function HeroSection() {
             className="mb-6 md:mb-8"
           >
             <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full text-sm text-primary font-medium mb-4">
-              <span>⚖️</span>
               선함노동사무소와 함께하는 스마트 노동 상담
             </div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 leading-tight">
@@ -116,7 +115,6 @@ function HeroSection() {
                     backgroundColor: selectedCategory === tag.id ? `${tag.color}10` : undefined
                   }}
                 >
-                  <span className="text-base">{tag.icon}</span>
                   <span className="text-sm md:text-base">#{tag.name}</span>
                 </motion.button>
               ))}
@@ -269,10 +267,6 @@ function CompanyIntroSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-6"
         >
-          <div className="inline-flex items-center gap-2 bg-primary/10 px-3 py-1.5 rounded-full text-sm text-primary font-medium mb-3">
-            <span>🏆</span>
-            신뢰받는 이유  
-          </div>
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
             <span className="text-primary">선함노동사무소</span>를 선택하는 이유
           </h2>
@@ -427,10 +421,6 @@ function ToolsSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-5 md:mb-6"
         >
-          <div className="inline-flex items-center gap-2 bg-primary/10 px-3 py-1.5 rounded-full text-sm text-primary font-medium mb-3">
-            <span>🛠️</span>
-            스마트 노무 도구
-          </div>
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
             근로자를 위한 <span className="text-primary">스마트 도구</span>
           </h2>
@@ -485,7 +475,6 @@ function ToolsSection() {
           className="text-center mt-4 md:mt-6"
         >
           <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
-            <span>💡</span>
             더 복잡한 문제라면 
             <Link href="/contact" className="text-primary hover:underline font-medium ml-1">
               전문가 비대면 상담
@@ -577,21 +566,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* 상단 리다이렉트 바 - 메인페이지에만 표시 */}
-      <div className="fixed top-16 left-0 right-0 z-40 bg-slate-100 border-b border-slate-200 py-1">
-        <div className="container-fluid max-w-7xl px-4 md:px-6">
-          <div className="flex justify-center items-center gap-4 text-xs">
-            <Link href="https://blog.naver.com/PostList.naver?blogId=fairhr" className="text-slate-600 hover:text-primary transition-colors">
-              선함노동사무소 블로그
-            </Link>
-            <span className="text-slate-400">|</span>
-            <Link href="https://h-rsystem.vercel.app/" className="text-slate-600 hover:text-primary transition-colors">
-              FAIR인사노무컨설팅회
-            </Link>
-          </div>
-        </div>
-      </div>
-      
       <HeroSection />
       <ServiceCategoriesSection />
       <CompanyIntroSection />

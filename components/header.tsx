@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, Briefcase, ChevronDown } from "lucide-react"
+import { Menu, Briefcase, ChevronDown, ArrowRight, Facebook, Mail, Search, User, UserPlus } from "lucide-react"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -123,9 +123,96 @@ ListItem.displayName = "ListItem"
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isTopBarVisible, setIsTopBarVisible] = useState(true)
+
+  // 스크롤 시 상단 바 숨김 처리
+  React.useEffect(() => {
+    let lastScrollY = window.scrollY
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      
+      if (currentScrollY > 50) {
+        setIsTopBarVisible(false)
+      } else {
+        setIsTopBarVisible(true)
+      }
+      
+      lastScrollY = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/95 shadow-sm">
+    <>
+      {/* 상단 리다이렉트 바 - 참고 사이트 스타일 */}
+      <div className={`fixed top-0 left-0 right-0 z-50 bg-gray-100 border-b border-gray-200 transition-transform duration-300 ${
+        isTopBarVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}>
+        <div className="container-fluid max-w-7xl px-4 md:px-6 py-1">
+          <div className="flex items-center justify-between text-xs">
+            {/* 왼쪽 소셜 아이콘들 */}
+            <div className="flex items-center gap-3">
+              <Link 
+                href="https://www.facebook.com"
+                className="text-gray-600 hover:text-primary transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-4 h-4" />
+              </Link>
+              <Link 
+                href="https://blog.naver.com/PostList.naver?blogId=fairhr"
+                className="text-gray-600 hover:text-primary transition-colors"
+                aria-label="Blog"
+              >
+                <Briefcase className="w-4 h-4" />
+              </Link>
+              <Link 
+                href="mailto:contact@sunham.co.kr"
+                className="text-gray-600 hover:text-primary transition-colors"
+                aria-label="Email"
+              >
+                <Mail className="w-4 h-4" />
+              </Link>
+            </div>
+            
+            {/* 중앙 문구 */}
+            <div className="text-gray-700 font-medium">
+              <span>세상을 안전하게, 일상을 다정하게, 함께</span>
+            </div>
+            
+            {/* 오른쪽 로그인/회원가입/검색 */}
+            <div className="flex items-center gap-3">
+              <Link 
+                href="/login"
+                className="text-gray-600 hover:text-primary transition-colors font-medium"
+              >
+                Login
+              </Link>
+              <Link 
+                href="/join"
+                className="text-gray-600 hover:text-primary transition-colors font-medium"
+              >
+                Join
+              </Link>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="h-6 w-6 p-0 text-gray-600 hover:text-primary"
+              >
+                <Search className="w-3 h-3" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 메인 헤더 */}
+      <header className={`fixed left-0 right-0 z-40 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/95 shadow-sm transition-all duration-300 ${
+        isTopBarVisible ? 'top-8' : 'top-0'
+      }`}>
         <div className="container-fluid max-w-7xl flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 flex-shrink-0 transition-opacity hover:opacity-80">
             <Image 
@@ -224,5 +311,6 @@ export default function Header() {
           </div>
         </div>
       </header>
+    </>
   )
 }
