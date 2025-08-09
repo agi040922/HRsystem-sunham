@@ -1,62 +1,16 @@
 "use client"
 
 import Link from "next/link"
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Search, Eye, CalendarDays } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Search, Eye, CalendarDays, Star } from "lucide-react"
 import PageBanner from "@/components/page-banner"
 import { motion } from "framer-motion"
 import { BoardPost } from "@/lib/supabase"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-
-// BoardItem 컴포넌트 
-interface BoardItemProps {
-  post: BoardPost
-}
-
-function BoardItem({ post }: BoardItemProps) {
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    })
-  }
-
-  return (
-    <Card className="hover:shadow-md transition-shadow h-full">
-      <CardHeader>
-        <Link href={`/board/${post.slug}`}>
-          <CardTitle className="text-lg md:text-xl hover:text-primary transition-colors line-clamp-2">
-            {post.title}
-          </CardTitle>
-        </Link>
-        <div className="flex items-center gap-4 text-sm text-muted-foreground mt-2">
-          <div className="flex items-center gap-1">
-            <CalendarDays className="w-4 h-4" />
-            <span>{formatDate(post.published_at)}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Eye className="w-4 h-4" />
-            <span>{post.views}</span>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="flex-grow">
-        <p className="text-muted-foreground leading-relaxed text-sm">
-          {post.excerpt || post.content.substring(0, 100) + '...'}
-        </p>
-      </CardContent>
-      <CardFooter>
-        <Link href={`/board/${post.slug}`} className="w-full">
-          <Button variant="outline" className="w-full">자세히 보기</Button>
-        </Link>
-      </CardFooter>
-    </Card>
-  )
-}
 
 interface BoardClientPageProps {
   initialPosts: BoardPost[]
@@ -97,14 +51,23 @@ export default function BoardClientPage({
     router.push(`/board?${params.toString()}`)
   }
 
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+  }
+
   const totalPages = Math.ceil(totalCount / 9)
   const posts = initialPosts
+
   return (
     <div className="w-full overflow-x-hidden">
       {/* 페이지 배너 */}
       <PageBanner 
         title="공지사항"
-        subtitle="노무법인 [법인명]의 다양한 소식을 전해드립니다"
+        subtitle="선함노동사무소의 다양한 소식을 전해드립니다"
         backgroundImage="/FAIR000.png"
       />
 
@@ -112,21 +75,22 @@ export default function BoardClientPage({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="container-fluid max-w-7xl py-8 md:py-12 lg:py-16 xl:py-20"
+        className="container-fluid max-w-7xl py-4 md:py-6 lg:py-8 xl:py-12"
       >
-        {/* 검색 섹션 */}
+        {/* 검색 및 통계 섹션 */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-12 md:mb-16"
+          className="mb-8 md:mb-12"
         >
-          <div className="mb-8 max-w-md mx-auto px-4">
+          {/* 검색 폼 */}
+          <div className="max-w-md mx-auto px-4">
             <form onSubmit={handleSearch} className="flex gap-2">
               <Input 
                 type="search" 
-                placeholder="게시글 검색..." 
+                placeholder="제목, 내용으로 검색..." 
                 className="flex-grow"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -148,24 +112,135 @@ export default function BoardClientPage({
           className="mb-12 md:mb-16 px-4 md:px-0"
         >
           {posts.length > 0 ? (
-            <div className="grid gap-6 md:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-              {posts.map((post, index) => (
-                <motion.div
-                  key={post.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <BoardItem post={post} />
-                </motion.div>
-              ))}
+            <div className="max-w-6xl mx-auto">
+              <Card>
+                <CardContent className="p-0">
+                  {/* 테이블 헤더 */}
+                  <div className="hidden md:grid md:grid-cols-12 gap-4 px-6 py-3 bg-gray-50 dark:bg-gray-800 border-b font-medium text-sm text-muted-foreground">
+                    <div className="col-span-1 text-center">번호</div>
+                    <div className="col-span-6">제목</div>
+                    <div className="col-span-2 text-center">등차</div>
+                    <div className="col-span-2 text-center">작성일</div>
+                    <div className="col-span-1 text-center">조회</div>
+                  </div>
+                  
+                  {/* 게시글 목록 */}
+                  <div className="divide-y">
+                    {posts.map((post, index) => {
+                      // 간단한 순차 번호 계산
+                      const postNumber = (currentPage - 1) * 9 + index + 1
+                      
+                      return (
+                        <motion.div
+                          key={post.id}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.3, delay: index * 0.05 }}
+                          className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 px-4 md:px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                        >
+                          {/* 모바일 레이아웃 */}
+                          <div className="md:hidden space-y-2">
+                            <div className="flex items-start justify-between gap-2">
+                              <Link 
+                                href={`/board/${post.slug}`}
+                                className="flex-1"
+                              >
+                                <h3 className="font-medium hover:text-blue-600 transition-colors line-clamp-2">
+                                  {post.is_featured && (
+                                    <Star className="w-4 h-4 inline mr-1 text-yellow-500" />
+                                  )}
+                                  {post.title}
+                                </h3>
+                              </Link>
+                              <span className="text-sm text-muted-foreground shrink-0">
+                                #{postNumber}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between text-xs text-muted-foreground">
+                              <span>{formatDate(post.published_at)}</span>
+                              <span className="flex items-center gap-1">
+                                <Eye className="w-3 h-3" />
+                                {post.views}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* 데스크톱 레이아웃 */}
+                          <div className="hidden md:contents">
+                            {/* 번호 */}
+                            <div className="col-span-1 flex items-center justify-center">
+                              <span className="text-sm font-medium text-muted-foreground">
+                                {postNumber}
+                              </span>
+                            </div>
+                            
+                            {/* 제목 */}
+                            <div className="col-span-6 flex items-center">
+                              <Link 
+                                href={`/board/${post.slug}`}
+                                className="flex items-center gap-2 hover:text-blue-600 transition-colors"
+                              >
+                                {post.is_featured && (
+                                  <Star className="w-4 h-4 text-yellow-500 shrink-0" />
+                                )}
+                                <span className="font-medium line-clamp-1">{post.title}</span>
+                              </Link>
+                            </div>
+                            
+                            {/* 등차 (작성자) */}
+                            <div className="col-span-2 flex items-center justify-center">
+                              <span className="text-sm text-muted-foreground">
+                                {post.author_name || '선함'}
+                              </span>
+                            </div>
+                            
+                            {/* 작성일 */}
+                            <div className="col-span-2 flex items-center justify-center">
+                              <span className="text-sm text-muted-foreground">
+                                {formatDate(post.published_at)}
+                              </span>
+                            </div>
+                            
+                            {/* 조회수 */}
+                            <div className="col-span-1 flex items-center justify-center">
+                              <span className="text-sm text-muted-foreground">
+                                {post.views}
+                              </span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           ) : (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">
-                {searchQuery ? '검색 결과가 없습니다.' : '게시글이 없습니다.'}
-              </p>
+            <div className="text-center py-16">
+              <div className="max-w-md mx-auto">
+                <div className="text-6xl mb-4">📝</div>
+                <h3 className="text-lg font-semibold mb-2">
+                  {searchQuery ? '검색 결과가 없습니다' : '게시글이 없습니다'}
+                </h3>
+                <p className="text-muted-foreground mb-6">
+                  {searchQuery 
+                    ? '다른 검색어로 시도해보세요.' 
+                    : '첫 번째 게시글이 곧 업로드될 예정입니다.'
+                  }
+                </p>
+                {searchQuery && (
+                  <Button 
+                    variant="outline" 
+                    onClick={() => {
+                      setSearchTerm('')
+                      router.push('/board')
+                    }}
+                  >
+                    전체 게시글 보기
+                  </Button>
+                )}
+              </div>
             </div>
           )}
         </motion.section>
@@ -189,7 +264,17 @@ export default function BoardClientPage({
               </Button>
               
               {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
-                const pageNum = i + 1
+                let pageNum
+                if (totalPages <= 5) {
+                  pageNum = i + 1
+                } else {
+                  // 현재 페이지 주변의 페이지들을 표시
+                  const start = Math.max(1, currentPage - 2)
+                  const end = Math.min(totalPages, start + 4)
+                  pageNum = start + i
+                  if (pageNum > end) return null
+                }
+                
                 return (
                   <Button
                     key={pageNum}
@@ -199,7 +284,7 @@ export default function BoardClientPage({
                     {pageNum}
                   </Button>
                 )
-              })}
+              }).filter(Boolean)}
               
               <Button 
                 variant="outline" 
@@ -211,13 +296,6 @@ export default function BoardClientPage({
             </div>
           </motion.section>
         )}
-
-        {/* 관리자 전용 글쓰기 버튼 (조건부 렌더링 필요) */}
-        {/* <div className="mt-8 text-right px-4">
-          <Link href="/board/new">
-            <Button>글쓰기</Button>
-          </Link>
-        </div> */}
       </motion.div>
     </div>
   )

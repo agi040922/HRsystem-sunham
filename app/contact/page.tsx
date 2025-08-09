@@ -1,7 +1,7 @@
 import ContactPageClient from "./ContactPageClient"
 
 export const metadata = {
-  title: "상담문의 | 노무법인 [법인명]",
+  title: "상담문의 | 선함노동사무소",
   description: "온라인 상담 신청 또는 전화, 이메일로 문의하세요.",
 }
 

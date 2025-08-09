@@ -156,21 +156,14 @@ export default function Header() {
             {/* 왼쪽 소셜 아이콘들 */}
             <div className="flex items-center gap-3">
               <Link 
-                href="https://www.facebook.com"
-                className="text-gray-600 hover:text-primary transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-4 h-4" />
-              </Link>
-              <Link 
-                href="https://blog.naver.com/PostList.naver?blogId=fairhr"
+                href="https://blog.naver.com/fairhr"
                 className="text-gray-600 hover:text-primary transition-colors"
                 aria-label="Blog"
               >
                 <Briefcase className="w-4 h-4" />
               </Link>
               <Link 
-                href="mailto:contact@sunham.co.kr"
+                href="mailto:fairhr@nate.com"
                 className="text-gray-600 hover:text-primary transition-colors"
                 aria-label="Email"
               >
@@ -180,7 +173,7 @@ export default function Header() {
             
             {/* 중앙 문구 */}
             <div className="text-gray-700 font-medium">
-              <span>세상을 안전하게, 일상을 다정하게, 함께</span>
+              <span>선한 이웃이 되어 도와드리겠습니다.</span>
             </div>
             
             {/* 오른쪽 로그인/회원가입/검색 */}
