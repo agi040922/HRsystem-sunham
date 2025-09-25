@@ -27,12 +27,12 @@ export default function CompanyLogosSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-8"
+          className="text-center mb-4 sm:mb-6 md:mb-8"
         >
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">
             <span className="text-primary">200여 외국계 기업</span>이 선택한 전문가
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto mb-6 sm:mb-8">
+          <p className="text-xs sm:text-sm md:text-base text-muted-foreground max-w-3xl mx-auto mb-3 sm:mb-4 md:mb-6">
             2005년부터 19년간 글로벌 기업들의 신뢰받는 파트너
           </p>
         </motion.div>
@@ -43,15 +43,15 @@ export default function CompanyLogosSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex justify-center gap-8 mb-8"
+          className="flex justify-center gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6 md:mb-8"
         >
           <div className="text-center">
-            <div className="text-2xl font-bold text-primary mb-1">200+</div>
-            <div className="text-sm text-gray-600">외국계 기업</div>
+            <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-0.5 sm:mb-1">200+</div>
+            <div className="text-xs sm:text-sm text-gray-600">외국계 기업</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-primary mb-1">19년</div>
-            <div className="text-sm text-gray-600">전문 경험</div>
+            <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-0.5 sm:mb-1">19년</div>
+            <div className="text-xs sm:text-sm text-gray-600">전문 경험</div>
           </div>
         </motion.div>
 
@@ -63,42 +63,42 @@ export default function CompanyLogosSection() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mb-8"
         >
-          <div className="text-center mb-6">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+          <div className="text-center mb-3 sm:mb-4 md:mb-6">
+            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2 md:mb-3">
               함께한 <span className="text-primary">글로벌 기업</span>들
             </h3>
-            <p className="text-base text-gray-600">신뢰받는 파트너로 함께 성장해온 기업들</p>
+            <p className="text-xs sm:text-sm md:text-base text-gray-600">신뢰받는 파트너로 함께 성장해온 기업들</p>
           </div>
           
-          <div className="relative overflow-hidden bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 -mx-4 md:-mx-8 lg:-mx-16">
-            <div className="flex animate-scroll px-8">
+          <div className="relative overflow-hidden bg-gradient-to-r from-blue-50 via-white to-blue-50 py-6 sm:py-8 md:py-10 lg:py-12 -mx-4 md:-mx-8 lg:-mx-16">
+            <div className="flex animate-scroll px-4 sm:px-6 md:px-8">
               {/* 첫 번째 세트 */}
-              <div className="flex space-x-16 min-w-max">
+              <div className="flex space-x-6 sm:space-x-8 md:space-x-12 lg:space-x-16 min-w-max">
                 {companies.map((company, index) => (
                   <div 
                     key={`first-${index}`}
-                    className="flex flex-col items-center justify-center w-24 h-24 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                    className="flex flex-col items-center justify-center w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
                   >
                     <img 
                       src={company.logo} 
                       alt={company.name} 
-                      className="w-16 h-16 object-contain"
+                      className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
                     />
                   </div>
                 ))}
               </div>
               
               {/* 두 번째 세트 (무한 스크롤용) */}
-              <div className="flex space-x-16 min-w-max ml-16">
+              <div className="flex space-x-6 sm:space-x-8 md:space-x-12 lg:space-x-16 min-w-max ml-6 sm:ml-8 md:ml-12 lg:ml-16">
                 {companies.map((company, index) => (
                   <div 
                     key={`second-${index}`}
-                    className="flex flex-col items-center justify-center w-24 h-24 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                    className="flex flex-col items-center justify-center w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
                   >
                     <img 
                       src={company.logo} 
                       alt={company.name} 
-                      className="w-16 h-16 object-contain"
+                      className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain"
                     />
                   </div>
                 ))}

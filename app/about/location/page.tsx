@@ -9,7 +9,7 @@ import { motion } from "framer-motion"
 export default function LocationPage() {
   // 위치 정보
   const locationInfo = {
-    name: "FAIR인사노무컨설팅",
+    name: "선함노동사무소",
     address: "서울 은평구 진관 3로 22 파크앤타워 B동 412호",
     postalCode: "03280",
     phone: "02-387-9869",
@@ -67,7 +67,7 @@ export default function LocationPage() {
       {/* 페이지 배너 */}
       <PageBanner 
         title="오시는 길"
-        subtitle="노무법인 [법인명] 위치 안내 및 교통편"
+        subtitle="선함노동사무소 위치 안내 및 교통편" // 법인명 대신 선함노동사무소로 변경
         backgroundImage="/FAIR000.png"
       />
 

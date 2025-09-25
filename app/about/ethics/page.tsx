@@ -22,7 +22,7 @@ export default function EthicsPage() {
       {/* 페이지 배너 */}
       <PageBanner 
         title="윤리강령"
-        subtitle="FAIR인사노무컨설팅이 추구하는 8가지 핵심 가치와 윤리 원칙"
+        subtitle="선함노동사무소가 추구하는 8가지 핵심 가치와 윤리 원칙"
         backgroundImage="/FAIR000.png"
       />
 

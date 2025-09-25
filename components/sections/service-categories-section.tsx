@@ -55,9 +55,74 @@ export default function ServiceCategoriesSection() {
   ]
 
   return (
-    <section className="w-full py-10 md:py-16 bg-white">
-      <div className="container-fluid max-w-7xl px-4">
-        <div className="flex justify-center items-center gap-8 md:gap-12 lg:gap-16 overflow-x-auto scrollbar-hide">
+    <section className="w-full py-6 sm:py-8 md:py-12 bg-white">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+        
+        {/* 모바일: 3개/2개 그리드 레이아웃 */}
+        <div className="block sm:hidden">
+          {/* 첫 번째 줄: 3개 */}
+          <div className="flex justify-center items-center gap-4 mb-4">
+            {categories.slice(0, 3).map((category, index) => (
+              <motion.div
+                key={category.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="flex-1 max-w-[100px]"
+              >
+                <Link href={category.href}>
+                  <div className="flex flex-col items-center text-center cursor-pointer group">
+                    <div className={`w-12 h-12 rounded-full ${category.bgColor} ${category.textColor} flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      <category.icon className="w-5 h-5" />
+                    </div>
+                    <div className="space-y-0.5">
+                      <p className="text-[8px] text-gray-500 font-medium uppercase tracking-wider">
+                        {category.subtitle}
+                      </p>
+                      <h3 className="text-[10px] font-bold text-gray-900 group-hover:text-primary transition-colors leading-tight">
+                        {category.title}
+                      </h3>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* 두 번째 줄: 2개 */}
+          <div className="flex justify-center items-center gap-8">
+            {categories.slice(3, 5).map((category, index) => (
+              <motion.div
+                key={category.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: (index + 3) * 0.1 }}
+                className="flex-1 max-w-[100px]"
+              >
+                <Link href={category.href}>
+                  <div className="flex flex-col items-center text-center cursor-pointer group">
+                    <div className={`w-12 h-12 rounded-full ${category.bgColor} ${category.textColor} flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      <category.icon className="w-5 h-5" />
+                    </div>
+                    <div className="space-y-0.5">
+                      <p className="text-[8px] text-gray-500 font-medium uppercase tracking-wider">
+                        {category.subtitle}
+                      </p>
+                      <h3 className="text-[10px] font-bold text-gray-900 group-hover:text-primary transition-colors leading-tight">
+                        {category.title}
+                      </h3>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* 태블릿 이상: 한줄 레이아웃 */}
+        <div className="hidden sm:flex justify-center items-center gap-3 md:gap-4 lg:gap-6 xl:gap-8 overflow-x-auto scrollbar-hide pb-2 min-w-0">
           {categories.map((category, index) => (
             <motion.div
               key={category.title}
@@ -65,18 +130,18 @@ export default function ServiceCategoriesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="flex-shrink-0"
+              className="flex-shrink-0 min-w-[70px] md:min-w-[80px]"
             >
               <Link href={category.href}>
-                <div className="flex flex-col items-center text-center cursor-pointer group">
-                  <div className={`w-20 h-20 md:w-24 md:h-24 rounded-full ${category.bgColor} ${category.textColor} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                    <category.icon className="w-8 h-8 md:w-10 md:h-10" />
+                <div className="flex flex-col items-center text-center cursor-pointer group w-full">
+                  <div className={`w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full ${category.bgColor} ${category.textColor} flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                    <category.icon className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">
+                  <div className="space-y-0.5 px-1">
+                    <p className="text-[8px] md:text-[9px] text-gray-500 font-medium uppercase tracking-wider">
                       {category.subtitle}
                     </p>
-                    <h3 className="text-sm font-bold text-gray-900 group-hover:text-primary transition-colors">
+                    <h3 className="text-[10px] md:text-xs font-bold text-gray-900 group-hover:text-primary transition-colors leading-tight">
                       {category.title}
                     </h3>
                   </div>
