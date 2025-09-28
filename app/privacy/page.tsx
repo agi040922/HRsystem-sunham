@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "개인정보처리방침 | 노무법인 [법인명]",
-  description: "노무법인 [법인명]의 개인정보처리방침입니다.",
+  title: "개인정보처리방침 | 선함노동사무소",
+  description: "선함노동사무소의 개인정보처리방침입니다.",
 }
 
 export default function PrivacyPolicyPage() {
@@ -14,7 +14,7 @@ export default function PrivacyPolicyPage() {
 
         <div className="prose dark:prose-invert max-w-none space-y-6">
           <p>
-            노무법인 [법인명](이하 '법인')은 개인정보보호법 등 관련 법령상의 개인정보보호 규정을 준수하며, 관련 법령에
+            선함노동사무소(이하 '법인')은 개인정보보호법 등 관련 법령상의 개인정보보호 규정을 준수하며, 관련 법령에
             의거한 개인정보처리방침을 정하여 이용자 권익 보호에 최선을 다하고 있습니다.
           </p>
 
@@ -39,7 +39,7 @@ export default function PrivacyPolicyPage() {
           </ol>
 
           <h2 className="text-2xl font-semibold">제2조 (처리하는 개인정보 항목)</h2>
-          <p>법인은 상담 신청 및 서비스 제공을 위해 아래와 같은 개인정보를 수집하고 있습니다.</p>
+          <p>선함노동사무소은 상담 신청 및 서비스 제공을 위해 아래와 같은 개인정보를 수집하고 있습니다.</p>
           <ul className="list-disc pl-6">
             <li>필수항목: 성명, 연락처 (휴대폰 번호), 이메일 주소</li>
             <li>선택항목: 회사명, 직책, 문의 내용에 포함된 개인정보, 첨부파일에 포함된 개인정보 등</li>

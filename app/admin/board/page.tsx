@@ -3,6 +3,12 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Plus, Settings } from "lucide-react"
 import AdminBoardList from "./AdminBoardList"
+import { Dokdo } from "next/font/google"
+
+const dokdo = Dokdo({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 export const metadata: Metadata = {
   title: "공지사항 관리 | 어드민",
@@ -20,7 +26,7 @@ export default async function AdminBoardPage({
   const search = params.search || ""
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className={`min-h-screen bg-background ${dokdo.className}`}>
       <div className="container mx-auto py-8 px-4">
         <div className="max-w-6xl mx-auto">
           {/* 헤더 */}
