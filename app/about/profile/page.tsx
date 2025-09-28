@@ -12,7 +12,7 @@ export default function ProfilePage() {
   const representativeInfo = {
     name: "정광일",
     position: "대표 공인노무사",
-    image: "/강의1.png",
+    image: "/개인 사진.png",
     introduction: "제8회 공인노무사 시험 합격(1999년)으로 25년간의 풍부한 실무 경험과 전문 지식을 바탕으로 고객에게 최고의 노무 서비스를 제공하고 있습니다.",
     
     // 학력 정보

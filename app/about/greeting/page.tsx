@@ -33,7 +33,7 @@ export default function GreetingPage() {
               </h2>
               <div className="mb-6">
                 <Image
-                  src="/개인 사진.PNG"
+                  src="/개인 사진.png"
                   alt="대표 공인노무사 정광일 사진"
                   width={120}
                   height={120}
